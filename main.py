@@ -35,7 +35,12 @@ character_colors = {
     "Goku": "darkorange",
     "Monkey D. Luffy": "darkorange",
     "Saitama": "darkorange",
-    "Isaac Netero (HXH)": "darkorange"
+    "Isaac Netero (HXH)": "darkorange",
+
+    #MYTHIC
+    "One Above All (Marvel)":"red",
+    "Kami Tenchi":"red",
+    "Featherine (Umineko)":"red"
 }
 #Character Class
 class Characters:
@@ -128,7 +133,7 @@ def animtaion(frame=0):
     label.config(text=fake_names, fg=character_colors[fake_names])
     
     if frame <=20 and frame > 10:
-        sec += 60
+        sec += 105
         root.after(sec+20, animtaion, frame+1)
     elif frame <= 20:    
         root.after(60, animtaion, frame+1)
@@ -143,7 +148,7 @@ def spin_delay():
     global sec
     sec = 30
     animtaion()
-    btn.after(80)
+    btn.after(120)
     btn.config(state="active")
 
 #def spin
