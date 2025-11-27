@@ -1,6 +1,43 @@
 from tkinter import *
 import random
+#characters and colors
+character_colors = {
+    # COMMON
+    "Sakura (Naruto)": "dimgray",
+    "Usopp (One Piece)": "dimgray",
+    "Yajirobe (Dragon Ball)": "dimgray",
+    "Iruka (Naruto)": "dimgray",
+    "Kon (Bleach)": "dimgray",
 
+    # UNCOMMON
+    "Rock Lee (Naruto)": "green",
+    "Krillin (Dragon Ball)": "green",
+    "Chopper (One Piece)": "green",
+    "Kuwabara (Yu Yu Hakusho)": "green",
+    "Shino (Naruto)": "green",
+
+    # RARE
+    "Zoro (One Piece)": "blue",
+    "Vegeta (Dragon Ball)": "blue",
+    "Kakashi (Naruto)": "blue",
+    "Ichigo (Bleach)": "blue",
+    "Killer Bee (Naruto)": "blue",
+
+    # EPIC
+    "Gojo Satoru (JJK)": "purple",
+    "Madara Uchiha (Naruto)": "purple",
+    "Yamamoto (Bleach)": "purple",
+    "Aizen (Bleach)": "purple",
+    "Sukuna (JJK)": "purple",
+
+    # LEGENDARY
+    "Naruto Uzumaki": "darkorange",
+    "Goku": "darkorange",
+    "Monkey D. Luffy": "darkorange",
+    "Saitama": "darkorange",
+    "Isaac Netero (HXH)": "darkorange"
+}
+#Character Class
 class Characters:
     def __init__(self):
         pass
@@ -86,22 +123,25 @@ def show_real():
     btn.config(state="normal")
 
 def animtaion(frame=0):
-    fake_names = [
-        "Naruto", "Sakura", "Zoro", "Aizen", "Goku", 
-        "Rock Lee", "Ichigo", "Madara", "Saitama"
-    ]
-    fake_color = [
-        "darkorange", "dimgray", "blue", "purple", "darkorange" , "green", "darkorange", "red","darkorange","blue","green"
-    ,"dimgray","dimgray","dimgray"
-    ]
-    label.config(text=fake_names[frame % len(fake_names)], fg=fake_color[frame%len(fake_color)])
-    if frame <= 20:    
+    global sec, shuffled_names
+    fake_names = shuffled_names[frame % len(shuffled_names)]
+    label.config(text=fake_names, fg=character_colors[fake_names])
+    
+    if frame <=20 and frame > 10:
+        sec += 60
+        root.after(sec+20, animtaion, frame+1)
+    elif frame <= 20:    
         root.after(60, animtaion, frame+1)
     else:
         show_real()
 
 def spin_delay():
+    global shuffled_names
     btn.config(state="disabled")
+    shuffled_names = list(character_colors.keys())
+    random.shuffle(shuffled_names)
+    global sec
+    sec = 30
     animtaion()
     btn.after(80)
     btn.config(state="active")
